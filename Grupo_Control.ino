@@ -20,7 +20,7 @@ void setup() {
     Serial.println("Error al iniciar el sensor CCS811. Verifica la conexión.");
     while (1);
   }
-  if (!dht.begin()) {
+  if (!dht.begin(1000)) {
     Serial.println("Error al iniciar el sensor DHT11. Verifica la conexión.");
     while (1);
   }
