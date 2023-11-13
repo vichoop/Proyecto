@@ -29,7 +29,7 @@ void setup() {
     Serial.println("Error al iniciar los sensores CCS811. Verifica la conexión.");
     while (1);
   }
-  if (!dht_T1.begin() || !dht_T2.begin() || !dht_T3.begin()) {
+  if (!dht_T1.begin(1000) || !dht_T2.begin(1000) || !dht_T3.begin(1000)) {
     Serial.println("Error al iniciar los sensores DHT11. Verifica la conexión.");
     while (1);
   }
