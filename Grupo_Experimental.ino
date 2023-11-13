@@ -79,10 +79,13 @@ void loop() {
   lcd.print("Terrario ");
   lcd.print(currentTerrarium);
   lcd.setCursor(0, 1); // Cambia a la segunda línea
-  lcd.print("Temp: ");
+  lcd.print("T: ");
   lcd.print(temperature);
-  lcd.print("C  Hum: ");
+  lcd.print("(char)223 C  HA: ");
   lcd.print(humidity);
+  lcd.print("%");
+  lcd.print("  HS: ");
+  lcd.print(humedad);
   lcd.print("%");
 
   delay(1000); // Puedes ajustar la frecuencia de actualización
