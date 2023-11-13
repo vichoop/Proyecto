@@ -1,11 +1,11 @@
-#include <Adafruit_Sensor.h>
-#include <DHT.h>
-#include <Wire.h>
-#include "Adafruit_CCS811.h"
-#include <LiquidCrystal.h> // Agregar la biblioteca para la pantalla LCD
+#include <Adafruit_Sensor.h> // Librería Sensores
+#include "Adafruit_CCS811.h" // Librería CCS811 (Sensor de Dióxido de Carbono)
+#include <DHT.h> // Librería DHT (Sensor de Temperatura y Humedad Relativa)
+#include <LiquidCrystal.h> // Librería LCD
+#include <Wire.h> // Librería Intervención de LCD
 
-#define DHTPIN 2
-#define DHTTYPE DHT11
+#define DHTPIN 2 // El pin digital dónde está conectado el sensor DHT11 es el 2. 
+#define DHTTYPE DHT11 // La librería de DHT está creada también para su sensor hermano (DHT22), entonces hay que especificar cuál es.
 
 DHT dht(DHTPIN, DHTTYPE);
 Adafruit_CCS811 ccs;
