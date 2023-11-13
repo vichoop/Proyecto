@@ -6,8 +6,8 @@
 
 #define DHTPIN 2 // El pin digital dónde está conectado el sensor DHT11 es el 2. 
 #define DHTTYPE DHT11 // La librería de DHT está creada también para su sensor hermano (DHT22), entonces hay que especificar cuál es.
+#define SensorPin AO
 
-int SensorPin =A0;
 DHT dht(DHTPIN, DHTTYPE);
 Adafruit_CCS811 ccs;
 
