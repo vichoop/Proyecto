@@ -8,6 +8,9 @@
 #define DHTPIN_T2 3 // Se define el pin digital de algunos de los sensores DHT11 es 3.
 #define DHTPIN_T3 4 // Se define el pin digital de algunos de los sensores DHT11 es 4.
 #define DHTTYPE DHT11 // Se define y especifica el tipo de sensor que es.
+#define HUMEDAD_S_T1 A8
+#define HUMEDAD_S_T2 A9
+#define HUMEDAD_S_T3 A10
 #define BUTTON_PIN 5 // Se define el pin digital del botón es 5.
 
 DHT dht_T1(DHTPIN_T1, DHTTYPE);
@@ -48,22 +51,26 @@ void loop() {
   }
 
   float temperature, humidity, co2;
+  int HS;
 
   switch (currentTerrarium) {
     case 1:
       temperature = dht_T1.readTemperature();
       humidity = dht_T1.readHumidity();
       co2 = ccs_T1.geteCO2();
+      HS = analogRead(HUMEDAD_S_T1);
       break;
     case 2:
       temperature = dht_T2.readTemperature();
       humidity = dht_T2.readHumidity();
       co2 = ccs_T2.geteCO2();
+      HS = analogRead(HUMEDAD_S_T2);
       break;
     case 3:
       temperature = dht_T3.readTemperature();
       humidity = dht_T3.readHumidity();
       co2 = ccs_T3.geteCO2();
+      HS = analogRead(HUMEDAD_S_T3);
       break;
   }
 
