@@ -1,0 +1,49 @@
+#include <Adafruit_Sensor.h>
+#include <DHT.h>
+#include <Wire.h>
+#include "Adafruit_CCS811.h"
+#include <LiquidCrystal.h> // Agregar la biblioteca para la pantalla LCD
+
+#define DHTPIN 2
+#define DHTTYPE DHT11
+
+DHT dht(DHTPIN, DHTTYPE);
+Adafruit_CCS811 ccs;
+
+LiquidCrystal lcd(8, 9, 10, 11, 12, 13); // Configura los pines de la pantalla LCD
+
+void setup() {
+  Serial.begin(9600);
+  lcd.begin(16, 2); // Inicializa la pantalla LCD con 16 columnas y 2 filas
+
+  if (!ccs.begin()) {
+    Serial.println("Error al iniciar el sensor CCS811. Verifica la conexión.");
+    while (1);
+  }
+  if (!dht.begin()) {
+    Serial.println("Error al iniciar el sensor DHT11. Verifica la conexión.");
+    while (1);
+  }
+}
+
+void loop() {
+  float temperature, humidity, co2;
+
+  temperature = dht.readTemperature();
+  humidity = dht.readHumidity();
+  co2 = ccs.geteCO2();
+
+  // Actualiza la pantalla LCD con los datos
+  lcd.clear();
+  lcd.print("Terrario 1");
+  lcd.setCursor(0, 1); // Cambia a la segunda línea
+  lcd.print("Temp: ");
+  lcd.print(temperature);
+  lcd.print("C  Hum: ");
+  lcd.print(humidity);
+  lcd.print("% CO2: ");
+  lcd.print(co2);
+  lcd.print(" ppm");
+
+  delay(1000); // Puedes ajustar la frecuencia de actualización
+}

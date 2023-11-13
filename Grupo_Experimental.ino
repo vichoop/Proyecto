@@ -1,0 +1,82 @@
+#include <Adafruit_Sensor.h>
+#include <DHT.h>
+#include <Wire.h>
+#include "Adafruit_CCS811.h"
+#include <LiquidCrystal.h> // Agregar la biblioteca para la pantalla LCD
+
+#define DHTPIN_T1 2
+#define DHTPIN_T2 3
+#define DHTPIN_T3 4
+#define DHTTYPE DHT11
+#define BUTTON_PIN 5
+
+DHT dht_T1(DHTPIN_T1, DHTTYPE);
+DHT dht_T2(DHTPIN_T2, DHTTYPE);
+DHT dht_T3(DHTPIN_T3, DHTTYPE);
+Adafruit_CCS811 ccs_T1;
+Adafruit_CCS811 ccs_T2;
+Adafruit_CCS811 ccs_T3;
+
+LiquidCrystal lcd(8, 9, 10, 11, 12, 13); // Configura los pines de la pantalla LCD
+
+int currentTerrarium = 1; // Terrario actual (1, 2, o 3)
+
+void setup() {
+  Serial.begin(9600);
+  lcd.begin(16, 2); // Inicializa la pantalla LCD con 16 columnas y 2 filas
+
+  if (!ccs_T1.begin() || !ccs_T2.begin() || !ccs_T3.begin()) {
+    Serial.println("Error al iniciar los sensores CCS811. Verifica la conexión.");
+    while (1);
+  }
+  if (!dht_T1.begin() || !dht_T2.begin() || !dht_T3.begin()) {
+    Serial.println("Error al iniciar los sensores DHT11. Verifica la conexión.");
+    while (1);
+  }
+  pinMode(BUTTON_PIN, INPUT);
+}
+
+void loop() {
+  int buttonState = digitalRead(BUTTON_PIN);
+
+  if (buttonState == HIGH) {
+    delay(100); // Debounce
+    if (buttonState == HIGH) {
+      // Cambia al siguiente terrario
+      currentTerrarium = (currentTerrarium % 3) + 1;
+    }
+  }
+
+  float temperature, humidity, co2;
+
+  switch (currentTerrarium) {
+    case 1:
+      temperature = dht_T1.readTemperature();
+      humidity = dht_T1.readHumidity();
+      co2 = ccs_T1.geteCO2();
+      break;
+    case 2:
+      temperature = dht_T2.readTemperature();
+      humidity = dht_T2.readHumidity();
+      co2 = ccs_T2.geteCO2();
+      break;
+    case 3:
+      temperature = dht_T3.readTemperature();
+      humidity = dht_T3.readHumidity();
+      co2 = ccs_T3.geteCO2();
+      break;
+  }
+
+  // Actualiza la pantalla LCD con los datos
+  lcd.clear();
+  lcd.print("Terrario ");
+  lcd.print(currentTerrarium);
+  lcd.setCursor(0, 1); // Cambia a la segunda línea
+  lcd.print("Temp: ");
+  lcd.print(temperature);
+  lcd.print("C  Hum: ");
+  lcd.print(humidity);
+  lcd.print("%");
+
+  delay(1000); // Puedes ajustar la frecuencia de actualización
+}
