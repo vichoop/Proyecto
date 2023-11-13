@@ -17,7 +17,7 @@ Adafruit_CCS811 ccs_T1;
 Adafruit_CCS811 ccs_T2;
 Adafruit_CCS811 ccs_T3;
 
-LiquidCrystal lcd(8, 9, 10, 11, 12, 13); // Configura los pines de la pantalla LCD
+LiquidCrystal lcd(8, 9, 10, 11, 12, 13, 14); // Configura los pines de la pantalla LCD. Parámetros: (rs, rw, e, d4, d5, d6, d7)
 
 int currentTerrarium = 1; // Terrario actual (1, 2, o 3)
 
