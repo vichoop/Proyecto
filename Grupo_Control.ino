@@ -39,7 +39,7 @@ void loop() {
   lcd.clear();
   lcd.print("Terrario 1");
   lcd.setCursor(0, 1); // Cambia a la segunda línea
-  lcd.print("Temp: ");
+  lcd.print("T: (char)223");
   lcd.print(temperature);
   lcd.print("C  HA: ");
   lcd.print(humidity);
