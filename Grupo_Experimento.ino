@@ -29,11 +29,11 @@ void setup() {
   lcd.begin(16, 2);
 
   if (!ccs_T1.begin() || !ccs_T2.begin() || !ccs_T3.begin()) {
-    Serial.println("Error initializing CCS811 sensors. Check the connection.");
+    Serial.println("Error al medir Dióxido de Carbono");
     while (1);
   }
   if (!dht_T1.begin(1000) || !dht_T2.begin(1000) || !dht_T3.begin(1000)) {
-    Serial.println("Error initializing DHT11 sensors. Check the connection.");
+    Serial.println("Error al medir Temperatura y Humedad Ambiental");
     while (1);
   }
   pinMode(BUTTON_PIN, INPUT);
@@ -49,27 +49,26 @@ void loop() {
     }
   }
 
-  float temperature, humidity, co2;
-  float HS; // Change from int to float
+  float temperature, humidity, HS, co2;
 
   switch (currentTerrarium) {
     case 1:
       temperature = dht_T1.readTemperature();
       humidity = dht_T1.readHumidity();
-      co2 = ccs_T1.geteCO2();
       HS = map(analogRead(HUMEDAD_S_T1), 0, 1023, 0, 100); // Assuming HS represents a percentage
+      co2 = ccs_T1.geteCO2();
       break;
     case 2:
       temperature = dht_T2.readTemperature();
       humidity = dht_T2.readHumidity();
-      co2 = ccs_T2.geteCO2();
       HS = map(analogRead(HUMEDAD_S_T2), 0, 1023, 0, 100);
+      co2 = ccs_T2.geteCO2();
       break;
     case 3:
       temperature = dht_T3.readTemperature();
       humidity = dht_T3.readHumidity();
-      co2 = ccs_T3.geteCO2();
       HS = map(analogRead(HUMEDAD_S_T3), 0, 1023, 0, 100);
+      co2 = ccs_T3.geteCO2();
       break;
   }
 
@@ -91,4 +90,3 @@ void loop() {
 
   delay(1000);
 }
-
