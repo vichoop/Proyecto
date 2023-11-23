@@ -6,7 +6,7 @@
 
 #define DHTPIN 2 // El pin digital dónde está conectado el sensor DHT11 es el 2. 
 #define DHTTYPE DHT11 // La librería de DHT está creada también para su sensor hermano (DHT22), entonces hay que especificar cuál es.
-#define SensorPin AO
+#define SensorPin A0
 
 DHT dht(DHTPIN, DHTTYPE);
 Adafruit_CCS811 ccs;
@@ -21,36 +21,31 @@ void setup() {
     Serial.println("Error al iniciar el sensor CCS811. Verifica la conexión.");
     while (1);
   }
-  if (!dht.begin(1000)) {
-    Serial.println("Error al iniciar el sensor DHT11. Verifica la conexión.");
-    while (1);
-  }
 }
 
 void loop() {
-  float temperature, humidity, co2;
+  float temperature, HS, HA, co2;
 
-  int humedad = analogRead(SensorPin);
+  HS = map(analogRead(SensorPin), 0, 1023, 0, 100);
   temperature = dht.readTemperature();
-  humidity = dht.readHumidity();
+  HA = dht.readHumidity();
   co2 = ccs.geteCO2();
 
   // Actualiza la pantalla LCD con los datos
   lcd.clear();
-  lcd.print("Terrario 1");
-  lcd.setCursor(0, 1); // Cambia a la segunda línea
+  lcd.setCursor(0, 0);
   lcd.print("T: ");
   lcd.print((char)223);
-  lcd.print(temperature);
+  lcd.print(temperature, 1);
   lcd.print("C  HA: ");
-  lcd.print(humidity);
-  lcd.print("% CO2: ");
-  lcd.print(co2);
-  lcd.print(" ppm");
-  lcd.print("  HS: ");
-  lcd.print(humedad);
+  lcd.print(HA, 1);
   lcd.print("%");
-
-
+  lcd.setCursor(0, 1);
+  lcd.print("HS: ");
+  lcd.print(HS, 1);
+  lcd.print("% CO2: ");
+  lcd.print(co2, 1);
+  lcd.print(ppm);
+  
   delay(1000); // Puedes ajustar la frecuencia de actualización
 }
