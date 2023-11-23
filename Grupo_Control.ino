@@ -24,9 +24,9 @@ void setup() {
 }
 
 void loop() {
-  float temperature, HS, HA, co2;
+  int  HS=map(analogRead(SensorPin), 0, 1023, 0, 100);
+  float temperature, HA, co2;
 
-  HS = map(analogRead(SensorPin), 0, 1023, 0, 100);
   temperature = dht.readTemperature();
   HA = dht.readHumidity();
   co2 = ccs.geteCO2();
