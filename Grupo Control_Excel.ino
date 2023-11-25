@@ -6,11 +6,11 @@
 
 #define DHTPIN 10 // Definición del Pin Digital del sensor DHT11.
 #define DHTTYPE DHT11 // La librería de DHT está creada también para su sensor hermano (DHT22), entonces hay que especificar cuál es.
-#define SensorPin A0 // Definición del Pin Análogo del sensor de Humedad del Suelo.
+#define SueloPin_T1 A0 // Definición del Pin Análogo del sensor de Humedad del Suelo.
 
-DHT dht(DHTPIN, DHTTYPE); // Ejecución de la librería del DHT y nombre del sensor: 'dht'.
+DHT dht_T1(DHTPIN, DHTTYPE); // Ejecución de la librería del DHT y nombre del sensor: 'dht_T1'.
 LiquidCrystal lcd(8, 9, 4, 5, 6, 7); // Ejecución de la libraría del LCD y Configuración Pines Pantalla LCD (rs, en, d4, d5, d6, d7).
-Adafruit_CCS811 ccs; // Ejecución de la librería del CCS811 y nombre del sensor 'ccs'.
+Adafruit_CCS811 ccs_T1; // Ejecución de la librería del CCS811 y nombre del sensor 'ccs_T1'.
 
 void setup() {
   Serial.begin(9600);
@@ -33,10 +33,10 @@ void setup() {
 void loop() {
   ccs.readData(); // Orden al sensor CCS811 para que reciba datos.
   
-  float Temperatura = dht.readTemperature(); // Clasificación de Variable de Temperatura (en C°).
-  float HA = dht.readHumidity(); // Clasificación de Variable de Humedad Ambiental (en %).
-  int  HS=map(analogRead(SensorPin), 0, 1023, 100, 0); // Clasificación de Variable de Humedad del Suelo (en %).
-  float co2 = ccs.geteCO2(); // Clasificación de Variable de Dióxido de Carbono (en ppm).
+  float Temperatura = dht_T1.readTemperature(); // Clasificación de Variable de Temperatura (en C°).
+  float HA = dht_T1.readHumidity(); // Clasificación de Variable de Humedad Ambiental (en %).
+  int  HS=map(analogRead(SueloPin_T1), 0, 1023, 100, 0); // Clasificación de Variable de Humedad del Suelo (en %).
+  float co2 = ccs_T1.geteCO2(); // Clasificación de Variable de Dióxido de Carbono (en ppm).
 
   // Inicio Integración Excel
 
