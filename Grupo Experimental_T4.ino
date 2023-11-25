@@ -6,7 +6,7 @@
 
 #define DHTPIN 10 // Definición del Pin Digital del sensor DHT11.
 #define DHTTYPE DHT11 // La librería de DHT está creada también para su sensor hermano (DHT22), entonces hay que especificar cuál es.
-#define SueloPin_T3 A0 // Definición del Pin Análogo del sensor de Humedad del Suelo.
+#define SueloPin_T4 A0 // Definición del Pin Análogo del sensor de Humedad del Suelo.
 
 DHT dht_T4(DHTPIN, DHTTYPE); // Ejecución de la librería del DHT y nombre del sensor: 'dht_T3'.
 LiquidCrystal lcd(8, 9, 4, 5, 6, 7); // Ejecución de la libraría del LCD y Configuración Pines Pantalla LCD (rs, en, d4, d5, d6, d7).
